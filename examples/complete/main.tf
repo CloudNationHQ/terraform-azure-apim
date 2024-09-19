@@ -81,8 +81,8 @@ module "appi" {
 }
 
 module "apim" {
-  source = "../../"
-  # version = "~> 1.0"
+  source = "cloudnationhq/apim/azure"
+  version = "~> 1.0"
 
   config = local.apim
 }

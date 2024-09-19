@@ -18,8 +18,8 @@ module "rg" {
 }
 
 module "apim" {
-  source = "../../"
-  # version = "~> 1.0"
+  source = "cloudnationhq/apim/azure"
+  version = "~> 1.0"
 
   config = {
     name            = module.naming.api_management.name
