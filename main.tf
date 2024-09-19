@@ -164,7 +164,7 @@ resource "azurerm_user_assigned_identity" "identity" {
 }
 
 resource "azurerm_role_assignment" "apimcert" {
-  for_each          = lookup(var.config, "custom_domain", null) != null ? { default = var.config.custom_domain } : {}
+  for_each = lookup(var.config, "custom_domain", null) != null ? { default = var.config.custom_domain } : {}
 
   scope                = var.config.custom_domain.kvid
   role_definition_name = "Key Vault Secrets Officer"

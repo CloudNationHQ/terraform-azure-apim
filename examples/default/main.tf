@@ -18,15 +18,15 @@ module "rg" {
 }
 
 module "apim" {
-  source  = "../../"
+  source = "../../"
   # version = "~> 1.0"
 
   config = {
-    name                = module.naming.api_management.name
-    resource_group      = module.rg.groups.demo.name
-    location            = module.rg.groups.demo.location
-    sku_name            = "Developer_1"
-    publisher_name      = "CloudNation"
-    publisher_email     = "testuser@cloudnation.nl"
+    name            = module.naming.api_management.name
+    resource_group  = module.rg.groups.demo.name
+    location        = module.rg.groups.demo.location
+    sku_name        = "Developer_1"
+    publisher_name  = "CloudNation"
+    publisher_email = "testuser@cloudnation.nl"
   }
 }
