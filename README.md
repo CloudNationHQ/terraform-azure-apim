@@ -58,6 +58,7 @@ End-to-end testing is not conducted on these modules, as they are individual com
 | [azurerm_api_management_product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_product) | resource |
 | [azurerm_api_management_user](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_user) | resource |
 | [azurerm_user_assigned_identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
+| [azurerm_role_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_role_assignment) | resource |
 
 ## Inputs
 
