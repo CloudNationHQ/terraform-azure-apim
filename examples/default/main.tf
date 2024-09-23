@@ -18,7 +18,7 @@ module "rg" {
 }
 
 module "apim" {
-  source = "cloudnationhq/apim/azure"
+  source  = "cloudnationhq/apim/azure"
   version = "~> 1.0"
 
   config = {
