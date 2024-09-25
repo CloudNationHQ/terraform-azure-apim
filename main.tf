@@ -146,7 +146,7 @@ resource "azurerm_api_management" "apim" {
     }
   }
 
-  tags = try(var.config.tags, {})
+  tags = try(var.config.tags, var.tags)
 
 }
 
@@ -160,7 +160,7 @@ resource "azurerm_user_assigned_identity" "identity" {
   name                = try(each.value.name, "uai-${var.config.name}")
   resource_group_name = try(var.config.resource_group, var.resource_group)
   location            = try(var.config.location, var.location)
-  tags                = try(each.value.tags, var.tags, null)
+  tags                = try(each.value.tags, var.tags)
 }
 
 resource "azurerm_role_assignment" "apimcert" {
@@ -207,6 +207,18 @@ resource "azurerm_api_management_custom_domain" "apim" {
       certificate_password            = try(developer_portal.value.certificate_password, null)
       negotiate_client_certificate    = try(developer_portal.value.negotiate_client_certificate, false)
       ssl_keyvault_identity_client_id = try(developer_portal.value.ssl_keyvault_identity_client_id, null)
+    }
+  }
+
+  dynamic "gateway" {
+    for_each = lookup(each.value, "gateway", null) != null ? [lookup(each.value, "gateway")] : []
+    content {
+      host_name                       = gateway.value.host_name
+      key_vault_id                    = try(gateway.value.key_vault_id, null)
+      certificate                     = try(gateway.value.certificate, null)
+      certificate_password            = try(gateway.value.certificate_password, null)
+      negotiate_client_certificate    = try(gateway.value.negotiate_client_certificate, false)
+      ssl_keyvault_identity_client_id = try(gateway.value.ssl_keyvault_identity_client_id, null)
     }
   }
 

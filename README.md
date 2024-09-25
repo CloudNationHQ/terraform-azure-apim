@@ -67,7 +67,7 @@ End-to-end testing is not conducted on these modules, as they are individual com
 | `config` | describes synapse related configuration | object | yes |
 | `location` | default azure region to be used  | string | yes |
 | `resource_group` | default resource group to be used | string | yes |
-| `tags` | optional tags to add to api management service resources | string | no |
+| `tags` | tags to be added to the resources | map(string) | no |
 
 ## Outputs
 
