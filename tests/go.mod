@@ -1,6 +1,6 @@
-module github.com/cloudnationhq/terraform-azure-redis
+module github.com/cloudnationhq/terraform-azure-apim
 
-go 1.23.0
+go 1.23.1
 
 require github.com/gruntwork-io/terratest v0.47.1
 
