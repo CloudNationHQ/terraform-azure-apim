@@ -7,7 +7,7 @@ module "naming" {
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   groups = {
     demo = {
@@ -19,7 +19,7 @@ module "rg" {
 
 module "vnet" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 3.0"
+  version = "~> 4.0"
 
   naming = local.naming
 
@@ -41,7 +41,7 @@ module "vnet" {
 
 module "kv" {
   source  = "cloudnationhq/kv/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   naming = local.naming
 
@@ -56,7 +56,7 @@ module "kv" {
 
 module "redis" {
   source  = "cloudnationhq/redis/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   cache = {
     name           = module.naming.redis_cache.name
@@ -70,7 +70,7 @@ module "redis" {
 
 module "appi" {
   source  = "cloudnationhq/appi/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   config = {
     name             = module.naming.application_insights.name
@@ -81,9 +81,8 @@ module "appi" {
 }
 
 module "apim" {
-  # source = "cloudnationhq/apim/azure"
-  # version = "~> 1.0"
-  source = "../../"
+  source  = "cloudnationhq/apim/azure"
+  version = "~> 2.0"
 
   config = local.apim
 }
