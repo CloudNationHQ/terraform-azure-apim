@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.0.0...v2.0.1) (2024-09-25)
+
+
+### Bug Fixes
+
+* Global tags and cleanup naming suffixes ([#6](https://github.com/CloudNationHQ/terraform-azure-apim/issues/6)) ([d62dc62](https://github.com/CloudNationHQ/terraform-azure-apim/commit/d62dc62f3fd26739bde1de1a97040f8b6acef6c2))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v1.0.0...v2.0.0) (2024-09-25)
 
 
