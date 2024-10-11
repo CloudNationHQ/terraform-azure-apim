@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.0.1...v2.1.0) (2024-10-11)
+
+
+### Features
+
+* auto generated docs and refine makefile ([#8](https://github.com/CloudNationHQ/terraform-azure-apim/issues/8)) ([afb59a9](https://github.com/CloudNationHQ/terraform-azure-apim/commit/afb59a92a29a36e312fc90125e9bce960db7f68b))
+
 ## [2.0.1](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.0.0...v2.0.1) (2024-09-25)
 
 
