@@ -32,49 +32,51 @@ End-to-end testing is not conducted on these modules, as they are individual com
 - Add AAD Identity provider
 - Add products and users
 
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.9.3 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 3.116 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.3 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 4.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 3.116 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 4.0 |
 
 ## Resources
 
 | Name | Type |
-| :-- | :-- |
-| [azurerm_api_management](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management) | resource |
-| [azurerm_api_management_custom_domain](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_custom_domain) | resource |
-| [azurerm_api_management_redis_cache](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_redis_cache) | resource |
-| [azurerm_api_management_logger](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_logger) | resource |
-| [azurerm_api_management_api](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_api) | resource |
-| [azurerm_api_management_identity_provider_aad](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_identity_provider_aad) | resource |
-| [azurerm_api_management_product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_product) | resource |
-| [azurerm_api_management_user](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_api_management_user) | resource |
-| [azurerm_user_assigned_identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
-| [azurerm_role_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/azurerm_role_assignment) | resource |
+|------|------|
+| [azurerm_api_management.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) | resource |
+| [azurerm_api_management_api.api](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api) | resource |
+| [azurerm_api_management_custom_domain.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_custom_domain) | resource |
+| [azurerm_api_management_identity_provider_aad.provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_identity_provider_aad) | resource |
+| [azurerm_api_management_logger.logger](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_logger) | resource |
+| [azurerm_api_management_product.product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) | resource |
+| [azurerm_api_management_redis_cache.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_redis_cache) | resource |
+| [azurerm_api_management_user.user](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_user) | resource |
+| [azurerm_role_assignment.apimcert](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [azurerm_user_assigned_identity.identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
 
 ## Inputs
 
-| Name | Description | Type | Required |
-| :-- | :-- | :-- | :-- |
-| `config` | describes synapse related configuration | object | yes |
-| `location` | default azure region to be used  | string | yes |
-| `resource_group` | default resource group to be used | string | yes |
-| `tags` | tags to be added to the resources | map(string) | no |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_config"></a> [config](#input\_config) | describes the apim configuration | `any` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | default azure region to be used. | `string` | `null` | no |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | default resource group to be used. | `string` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | tags to be added to the resources | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
-| :-- | :-- |
-| `config` | contains all api management service configuration |
-| `user_assigned_identities` | contains user assigned identity information |
+|------|-------------|
+| <a name="output_config"></a> [config](#output\_config) | contains all redis cache configuration |
+| <a name="output_user_assigned_identities"></a> [user\_assigned\_identities](#output\_user\_assigned\_identities) | contains all user assigned identities configuration |
+<!-- END_TF_DOCS -->
 
 ## Testing
 
