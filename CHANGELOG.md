@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.1.0...v2.2.0) (2024-11-11)
+
+
+### Features
+
+* enhance testing with sequential, parallel modes and flags for exceptions and skip-destroy ([#10](https://github.com/CloudNationHQ/terraform-azure-apim/issues/10)) ([5fb44d3](https://github.com/CloudNationHQ/terraform-azure-apim/commit/5fb44d32ec37ce183ae1e8ce11d5d81c3e289902))
+
 ## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.0.1...v2.1.0) (2024-10-11)
 
 
