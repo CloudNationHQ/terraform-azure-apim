@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.2.0...v2.3.0) (2025-01-20)
+
+
+### Features
+
+* remove temporary files when deployment tests fails ([#12](https://github.com/CloudNationHQ/terraform-azure-apim/issues/12)) ([543c1d5](https://github.com/CloudNationHQ/terraform-azure-apim/commit/543c1d5af3d9a1542b4394d8e606768feee66c72))
+
 ## [2.2.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.1.0...v2.2.0) (2024-11-11)
 
 
