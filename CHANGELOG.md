@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.3.0...v2.4.0) (2025-07-07)
+
+
+### Features
+
+* removed azurerm provider config. ([#22](https://github.com/CloudNationHQ/terraform-azure-apim/issues/22)) ([e9f865a](https://github.com/CloudNationHQ/terraform-azure-apim/commit/e9f865a4f6e7645ec52b14ff12c5d5dcc4542432))
+
 ## [2.3.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.2.0...v2.3.0) (2025-01-20)
 
 
