@@ -22,7 +22,7 @@ module "apim" {
   version = "~> 2.0"
 
   config = {
-    name            = module.naming.api_management.name
+    name            = module.naming.api_management.name_unique
     resource_group  = module.rg.groups.demo.name
     location        = module.rg.groups.demo.location
     sku_name        = "Developer_1"

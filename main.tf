@@ -236,7 +236,7 @@ resource "azurerm_api_management_custom_domain" "apim" {
 }
 
 resource "azurerm_api_management_redis_cache" "apim" {
-  for_each          = lookup(var.config, "redis_cache", null) != null ? { default = var.config.redis_cache } : {}
+  for_each          = nonsensitive(lookup(var.config, "redis_cache", null) != null ? { default = var.config.redis_cache } : {})
   name              = each.value.name
   api_management_id = azurerm_api_management.apim.id
   connection_string = each.value.connection_string
@@ -246,7 +246,7 @@ resource "azurerm_api_management_redis_cache" "apim" {
 }
 
 resource "azurerm_api_management_logger" "logger" {
-  for_each            = lookup(var.config, "logger", null) != null ? { default = var.config.logger } : {}
+  for_each            = nonsensitive(lookup(var.config, "logger", null) != null ? { default = var.config.logger } : {})
   name                = each.value.name
   resource_group_name = coalesce(lookup(var.config, "resource_group", null), var.resource_group)
   api_management_name = azurerm_api_management.apim.name
