@@ -19,19 +19,19 @@ module "rg" {
 
 module "vnet" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 4.0"
+  version = "~> 9.0"
 
   naming = local.naming
 
   vnet = {
-    name           = module.naming.virtual_network.name
-    location       = module.rg.groups.demo.location
-    resource_group = module.rg.groups.demo.name
-    cidr           = ["10.0.0.0/16"]
+    name                = module.naming.virtual_network.name
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
+    address_space       = ["10.0.0.0/16"]
     subnets = {
       sn1 = {
-        cidr = ["10.0.0.0/24"]
-        nsg = {
+        address_prefixes = ["10.0.0.0/24"]
+        network_security_group = {
           rules = local.apim_nsg_rules
         }
       }
@@ -41,14 +41,14 @@ module "vnet" {
 
 module "kv" {
   source  = "cloudnationhq/kv/azure"
-  version = "~> 2.0"
+  version = "~> 4.0"
 
   naming = local.naming
 
   vault = {
-    name           = module.naming.key_vault.name_unique
-    location       = module.rg.groups.demo.location
-    resource_group = module.rg.groups.demo.name
+    name                = module.naming.key_vault.name_unique
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
 
     certs = local.certs
   }
@@ -56,15 +56,15 @@ module "kv" {
 
 module "redis" {
   source  = "cloudnationhq/redis/azure"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   cache = {
-    name           = module.naming.redis_cache.name
-    resource_group = module.rg.groups.demo.name
-    location       = module.rg.groups.demo.location
-    sku_name       = "Basic"
-    capacity       = 1
-    family         = "C"
+    name                = module.naming.redis_cache.name_unique
+    resource_group_name = module.rg.groups.demo.name
+    location            = module.rg.groups.demo.location
+    sku_name            = "Basic"
+    capacity            = 0
+    family              = "C"
   }
 }
 
