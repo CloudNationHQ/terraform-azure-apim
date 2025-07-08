@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.1](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.4.0...v2.4.1) (2025-07-08)
+
+
+### Bug Fixes
+
+* sensitive keys lookup ([#25](https://github.com/CloudNationHQ/terraform-azure-apim/issues/25)) ([997a81d](https://github.com/CloudNationHQ/terraform-azure-apim/commit/997a81d56cf5eacf87ccaa084123a9e04b15075e))
+
 ## [2.4.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.3.0...v2.4.0) (2025-07-07)
 
 
