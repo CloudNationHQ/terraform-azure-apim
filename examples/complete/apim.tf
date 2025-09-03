@@ -11,12 +11,12 @@ locals {
     custom_domain = {
       kvid = module.kv.vault.id
       portal = {
-        host_name    = "apim.portal.example.com"
-        key_vault_id = module.kv.certs.portal.versionless_secret_id
+        host_name                = "apim.portal.example.com"
+        key_vault_certificate_id = module.kv.certs.portal.versionless_secret_id
       }
       management = {
-        host_name    = "apim.management.example.com"
-        key_vault_id = module.kv.certs.management.versionless_secret_id
+        host_name                = "apim.management.example.com"
+        key_vault_certificate_id = module.kv.certs.management.versionless_secret_id
       }
     }
 
