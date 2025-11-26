@@ -59,11 +59,55 @@ resource "azurerm_api_management" "apim" {
         content {
           default_ssl_binding             = try(proxy.value.default_ssl_binding, false)
           host_name                       = proxy.value.host_name
-          key_vault_id                    = try(proxy.value.key_vault_id, null)
+          key_vault_certificate_id        = try(proxy.value.key_vault_certificate_id, null)
           certificate                     = try(proxy.value.certificate, null)
           certificate_password            = try(proxy.value.certificate_password, null)
           negotiate_client_certificate    = try(proxy.value.negotiate_client_certificate, false)
           ssl_keyvault_identity_client_id = try(proxy.value.ssl_keyvault_identity_client_id, null)
+        }
+      }
+      dynamic "portal" {
+        for_each = lookup(hostname_configuration.value, "portal", null) != null ? [lookup(hostname_configuration.value, "portal")] : []
+        content {
+          host_name                       = portal.value.host_name
+          key_vault_certificate_id        = try(portal.value.key_vault_certificate_id, null)
+          certificate                     = try(portal.value.certificate, null)
+          certificate_password            = try(portal.value.certificate_password, null)
+          negotiate_client_certificate    = try(portal.value.negotiate_client_certificate, false)
+          ssl_keyvault_identity_client_id = try(portal.value.ssl_keyvault_identity_client_id, null)
+        }
+      }
+      dynamic "scm" {
+        for_each = lookup(hostname_configuration.value, "scm", null) != null ? [lookup(hostname_configuration.value, "scm")] : []
+        content {
+          host_name                       = scm.value.host_name
+          key_vault_certificate_id        = try(scm.value.key_vault_certificate_id, null)
+          certificate                     = try(scm.value.certificate, null)
+          certificate_password            = try(scm.value.certificate_password, null)
+          negotiate_client_certificate    = try(scm.value.negotiate_client_certificate, false)
+          ssl_keyvault_identity_client_id = try(scm.value.ssl_keyvault_identity_client_id, null)
+        }
+      }
+      dynamic "management" {
+        for_each = lookup(hostname_configuration.value, "management", null) != null ? [lookup(hostname_configuration.value, "management")] : []
+        content {
+          host_name                       = management.value.host_name
+          key_vault_certificate_id        = try(management.value.key_vault_certificate_id, null)
+          certificate                     = try(management.value.certificate, null)
+          certificate_password            = try(management.value.certificate_password, null)
+          negotiate_client_certificate    = try(management.value.negotiate_client_certificate, false)
+          ssl_keyvault_identity_client_id = try(management.value.ssl_keyvault_identity_client_id, null)
+        }
+      }
+      dynamic "developer_portal" {
+        for_each = lookup(hostname_configuration.value, "developer_portal", null) != null ? [lookup(hostname_configuration.value, "developer_portal")] : []
+        content {
+          host_name                       = developer_portal.value.host_name
+          key_vault_certificate_id        = try(developer_portal.value.key_vault_certificate_id, null)
+          certificate                     = try(developer_portal.value.certificate, null)
+          certificate_password            = try(developer_portal.value.certificate_password, null)
+          negotiate_client_certificate    = try(developer_portal.value.negotiate_client_certificate, false)
+          ssl_keyvault_identity_client_id = try(developer_portal.value.ssl_keyvault_identity_client_id, null)
         }
       }
     }
@@ -83,19 +127,19 @@ resource "azurerm_api_management" "apim" {
   dynamic "protocols" {
     for_each = try(var.config.protocols, null) != null ? { default = var.config.protocols } : {}
     content {
-      enable_http2 = try(protocols.value.enable_http2, false)
+      http2_enabled = try(protocols.value.http2_enabled, false)
     }
   }
 
   dynamic "security" {
     for_each = try(var.config.security, null) != null ? { default = var.config.security } : {}
     content {
-      enable_backend_ssl30                                = try(security.value.enable_backend_ssl30, false)
-      enable_backend_tls10                                = try(security.value.enable_backend_tls10, false)
-      enable_backend_tls11                                = try(security.value.enable_backend_tls11, false)
-      enable_frontend_ssl30                               = try(security.value.enable_frontend_ssl30, false)
-      enable_frontend_tls10                               = try(security.value.enable_frontend_tls10, false)
-      enable_frontend_tls11                               = try(security.value.enable_frontend_tls11, false)
+      backend_ssl30_enabled                               = try(security.value.enable_backend_ssl30, false)
+      backend_tls10_enabled                               = try(security.value.enable_backend_tls10, false)
+      backend_tls11_enabled                               = try(security.value.enable_backend_tls11, false)
+      frontend_ssl30_enabled                              = try(security.value.enable_frontend_ssl30, false)
+      frontend_tls10_enabled                              = try(security.value.enable_frontend_tls10, false)
+      frontend_tls11_enabled                              = try(security.value.enable_frontend_tls11, false)
       tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = try(security.value.tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled, false)
       tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = try(security.value.tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled, false)
       tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = try(security.value.tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled, false)
@@ -178,7 +222,7 @@ resource "azurerm_api_management_custom_domain" "apim" {
     for_each = lookup(each.value, "management", null) != null ? [lookup(each.value, "management")] : []
     content {
       host_name                       = management.value.host_name
-      key_vault_id                    = try(management.value.key_vault_id, null)
+      key_vault_certificate_id        = try(management.value.key_vault_certificate_id, null)
       certificate                     = try(management.value.certificate, null)
       certificate_password            = try(management.value.certificate_password, null)
       negotiate_client_certificate    = try(management.value.negotiate_client_certificate, false)
@@ -190,7 +234,7 @@ resource "azurerm_api_management_custom_domain" "apim" {
     for_each = lookup(each.value, "portal", null) != null ? [lookup(each.value, "portal")] : []
     content {
       host_name                       = portal.value.host_name
-      key_vault_id                    = try(portal.value.key_vault_id, null)
+      key_vault_certificate_id        = try(portal.value.key_vault_certificate_id, null)
       certificate                     = try(portal.value.certificate, null)
       certificate_password            = try(portal.value.certificate_password, null)
       negotiate_client_certificate    = try(portal.value.negotiate_client_certificate, false)
@@ -202,7 +246,7 @@ resource "azurerm_api_management_custom_domain" "apim" {
     for_each = lookup(each.value, "developer_portal", null) != null ? [lookup(each.value, "developer_portal")] : []
     content {
       host_name                       = developer_portal.value.host_name
-      key_vault_id                    = try(developer_portal.value.key_vault_id, null)
+      key_vault_certificate_id        = try(developer_portal.value.key_vault_certificate_id, null)
       certificate                     = try(developer_portal.value.certificate, null)
       certificate_password            = try(developer_portal.value.certificate_password, null)
       negotiate_client_certificate    = try(developer_portal.value.negotiate_client_certificate, false)
@@ -214,9 +258,10 @@ resource "azurerm_api_management_custom_domain" "apim" {
     for_each = lookup(each.value, "gateway", null) != null ? [lookup(each.value, "gateway")] : []
     content {
       host_name                       = gateway.value.host_name
-      key_vault_id                    = try(gateway.value.key_vault_id, null)
+      key_vault_certificate_id        = try(gateway.value.key_vault_certificate_id, null)
       certificate                     = try(gateway.value.certificate, null)
       certificate_password            = try(gateway.value.certificate_password, null)
+      default_ssl_binding             = try(gateway.value.default_ssl_binding, false)
       negotiate_client_certificate    = try(gateway.value.negotiate_client_certificate, false)
       ssl_keyvault_identity_client_id = try(gateway.value.ssl_keyvault_identity_client_id, null)
     }
@@ -226,7 +271,7 @@ resource "azurerm_api_management_custom_domain" "apim" {
     for_each = lookup(each.value, "scm", null) != null ? [lookup(each.value, "scm")] : []
     content {
       host_name                       = scm.value.host_name
-      key_vault_id                    = try(scm.value.key_vault_id, null)
+      key_vault_certificate_id        = try(scm.value.key_vault_certificate_id, null)
       certificate                     = try(scm.value.certificate, null)
       certificate_password            = try(scm.value.certificate_password, null)
       negotiate_client_certificate    = try(scm.value.negotiate_client_certificate, false)
@@ -257,6 +302,7 @@ resource "azurerm_api_management_logger" "logger" {
   dynamic "application_insights" {
     for_each = lookup(each.value, "application_insights", null) != null ? [lookup(each.value, "application_insights")] : []
     content {
+      connection_string   = try(application_insights.value.connection_string, null)
       instrumentation_key = try(application_insights.value.instrumentation_key, null)
     }
   }
@@ -319,13 +365,13 @@ resource "azurerm_api_management_api" "api" {
     }
   }
 
-  # dynamic "licence" {
-  #   for_each = lookup(each.value, "licence", null) != null ? [lookup(each.value, "licence")] : []
-  #   content {
-  #     name = try(licence.value.name, null)
-  #     url  = try(licence.value.url, null)
-  #   }
-  # }
+  dynamic "license" {
+    for_each = lookup(each.value, "license", null) != null ? [lookup(each.value, "license")] : []
+    content {
+      name = try(license.value.name, null)
+      url  = try(license.value.url, null)
+    }
+  }
 
   dynamic "oauth2_authorization" {
     for_each = lookup(each.value, "oauth2_authorization", null) != null ? [lookup(each.value, "oauth2_authorization")] : []
@@ -352,7 +398,6 @@ resource "azurerm_api_management_api" "api" {
   }
 }
 
-#### WIP #####
 resource "azurerm_api_management_identity_provider_aad" "provider" {
   for_each = lookup(var.config, "identity_provider_aad", null) != null ? { default = var.config.identity_provider_aad } : {}
 
