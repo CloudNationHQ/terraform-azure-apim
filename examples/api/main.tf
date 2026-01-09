@@ -28,5 +28,17 @@ module "apim" {
     sku_name            = "Developer_1"
     publisher_name      = "CloudNation"
     publisher_email     = "testuser@cloudnation.nl"
+
+    apis = {
+      echo = {
+        name         = "echo"
+        revision     = "1"
+        display_name = "Echo API"
+        path         = "echo"
+        protocols    = ["https"]
+        service_url  = "https://httpbin.org"
+      }
+    }
   }
 }
+
