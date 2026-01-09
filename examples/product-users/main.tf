@@ -28,5 +28,24 @@ module "apim" {
     sku_name            = "Developer_1"
     publisher_name      = "CloudNation"
     publisher_email     = "testuser@cloudnation.nl"
+
+    products = {
+      starter = {
+        display_name          = "Starter"
+        product_id            = "starter"
+        published             = true
+        subscription_required = true
+      }
+    }
+
+    users = {
+      demo = {
+        email      = "demouser@cloudnation.nl"
+        first_name = "Demo"
+        last_name  = "User"
+        user_id    = "demo-user-1"
+        state      = "active"
+      }
+    }
   }
 }

@@ -21,6 +21,8 @@ module "apim" {
   source  = "cloudnationhq/apim/azure"
   version = "~> 3.0"
 
+  naming = local.naming
+
   config = {
     name                = module.naming.api_management.name_unique
     resource_group_name = module.rg.groups.demo.name
@@ -28,5 +30,16 @@ module "apim" {
     sku_name            = "Developer_1"
     publisher_name      = "CloudNation"
     publisher_email     = "testuser@cloudnation.nl"
+
+    apis = {
+      echo = {
+        revision     = "1"
+        display_name = "Echo API"
+        path         = "echo"
+        protocols    = ["https"]
+        service_url  = "https://httpbin.org"
+      }
+    }
   }
 }
+
