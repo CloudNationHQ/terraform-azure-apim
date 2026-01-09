@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.5.0...v3.0.0) (2026-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change causes recreates
+
+### Features
+
+* add type definitions and changed data structure ([#35](https://github.com/CloudNationHQ/terraform-azure-apim/issues/35)) ([4d8ff5d](https://github.com/CloudNationHQ/terraform-azure-apim/commit/4d8ff5d0758768cc9dd491090057962975f51284))
+
 ## [2.5.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.4.1...v2.5.0) (2025-11-26)
 
 
