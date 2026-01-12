@@ -1,36 +1,26 @@
 # API Management Service
 
-This terraform module streamlines the setup and management of the Azure API Management service, providing customizable configurations for an API Management service, as well as creating custom domains and application insights and Redis Cache integration.
-
-## Goals
-
-The main objective is to create a more logic data structure, achieved by combining and grouping related resources together in a complex object.
-
-The structure of the module promotes reusability. It's intended to be a repeatable component, simplifying the process of building diverse workloads and platform accelerators consistently.
-
-A primary goal is to utilize keys and values in the object that correspond to the REST API's structure. This enables us to carry out iterations, increasing its practical value as time goes on.
-
-A last key goal is to separate logic from configuration in the module, thereby enhancing its scalability, ease of customization, and manageability.
-
-## Non-Goals
-
-These modules are not intended to be complete, ready-to-use solutions; they are designed as components for creating your own patterns.
-
-They are not tailored for a single use case but are meant to be versatile and applicable to a range of scenarios.
-
-Security standardization is applied at the pattern level, while the modules include default values based on best practices but do not enforce specific security standards.
-
-End-to-end testing is not conducted on these modules, as they are individual components and do not undergo the extensive testing reserved for complete patterns or solutions.
+This terraform module streamlines the setup and management of the azure api management service, providing customizable configurations for an api management service, as well as creating custom domains and application insights and redis cache integration.
 
 ## Features
 
-- Create and manage API Management service
-- Make use of custom domains for management, portal, developer portal and scm.
-- Add API's
-- Add an Application Insights instance for logging
-- Add an Azure Cache for Redis for caching
-- Add AAD Identity provider
-- Add products and users
+Custom domain support for management, portal, developer portal, gateway and scm endpoints
+
+Application Insights integration for logging and monitoring
+
+Azure cache for redis integration for caching
+
+AAD identity provider configuration
+
+Product and user management
+
+Api configuration with multiple protocols and authentication options
+
+Virtual network integration for internal and external connectivity
+
+Multi-region deployment with additional locations
+
+Utilization of terratest for robust validation
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -260,7 +250,7 @@ object({
       cache_location    = optional(string, "default")
     }))
     logger = optional(object({
-      name        = string
+      name        = optional(string)
       buffered    = optional(bool, true)
       description = optional(string)
       resource_id = optional(string)
@@ -275,7 +265,7 @@ object({
       }))
     }))
     apis = optional(map(object({
-      name                  = string
+      name                  = optional(string)
       revision              = string
       api_type              = optional(string, "http")
       display_name          = optional(string)
