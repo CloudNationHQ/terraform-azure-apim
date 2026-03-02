@@ -343,7 +343,7 @@ object({
 
 ## Optional Inputs
 
-The following input variables are optional (have default values):
+The following input variables are optional (have default values): 
 
 ### <a name="input_location"></a> [location](#input\_location)
 
