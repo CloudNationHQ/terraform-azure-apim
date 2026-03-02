@@ -346,6 +346,7 @@ resource "azurerm_api_management_logger" "logger" {
 
     content {
       instrumentation_key = application_insights.value.instrumentation_key
+      connection_string   = application_insights.value.connection_string
     }
   }
 

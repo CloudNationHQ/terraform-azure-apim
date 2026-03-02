@@ -193,7 +193,8 @@ variable "config" {
       description = optional(string)
       resource_id = optional(string)
       application_insights = optional(object({
-        instrumentation_key = string
+        instrumentation_key = optional(string)
+        connection_string   = optional(string)
       }))
       eventhub = optional(object({
         name                             = string
@@ -285,6 +286,17 @@ variable "config" {
   validation {
     condition     = var.config.resource_group_name != null || var.resource_group_name != null
     error_message = "resource group name must be provided either in the config object or as a separate variable."
+  }
+
+  validation {
+    condition = (
+      var.config.logger == null || var.config.logger.application_insights == null ||
+      (
+        (try(var.config.logger.application_insights.instrumentation_key, null) != null) !=
+        (try(var.config.logger.application_insights.connection_string, null) != null)
+      )
+    )
+    error_message = "logger.application_insights must set exactly one of instrumentation_key or connection_string."
   }
 }
 
