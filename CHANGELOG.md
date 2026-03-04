@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.0.0...v3.1.0) (2026-03-04)
+
+
+### Features
+
+* add optional connection_string to application_insights and update validation logic ([#38](https://github.com/CloudNationHQ/terraform-azure-apim/issues/38)) ([a8e38d3](https://github.com/CloudNationHQ/terraform-azure-apim/commit/a8e38d3ddbd4a0df945994fa93dcea36bfc1d69d))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v2.5.0...v3.0.0) (2026-01-09)
 
 
