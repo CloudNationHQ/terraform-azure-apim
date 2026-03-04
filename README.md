@@ -255,7 +255,8 @@ object({
       description = optional(string)
       resource_id = optional(string)
       application_insights = optional(object({
-        instrumentation_key = string
+        instrumentation_key = optional(string)
+        connection_string   = optional(string)
       }))
       eventhub = optional(object({
         name                             = string
@@ -342,7 +343,7 @@ object({
 
 ## Optional Inputs
 
-The following input variables are optional (have default values):
+The following input variables are optional (have default values): 
 
 ### <a name="input_location"></a> [location](#input\_location)
 
