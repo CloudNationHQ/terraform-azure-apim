@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.2.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.1.0...v3.2.0) (2026-04-03)
+
+
+### Features
+
+* add missing outputs ([#40](https://github.com/CloudNationHQ/terraform-azure-apim/issues/40)) ([a453972](https://github.com/CloudNationHQ/terraform-azure-apim/commit/a45397259efb7787e108252ec1f2f543e51a7031))
+
 ## [3.1.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.0.0...v3.1.0) (2026-03-04)
 
 
