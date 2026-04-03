@@ -343,7 +343,7 @@ object({
 
 ## Optional Inputs
 
-The following input variables are optional (have default values): 
+The following input variables are optional (have default values):
 
 ### <a name="input_location"></a> [location](#input\_location)
 
@@ -381,9 +381,41 @@ Default: `{}`
 
 The following outputs are exported:
 
+### <a name="output_apis"></a> [apis](#output\_apis)
+
+Description: contains all api configuration
+
 ### <a name="output_config"></a> [config](#output\_config)
 
+Description: contains all api management configuration
+
+### <a name="output_custom_domains"></a> [custom\_domains](#output\_custom\_domains)
+
+Description: contains all custom domain configuration
+
+### <a name="output_identity_providers"></a> [identity\_providers](#output\_identity\_providers)
+
+Description: contains all identity provider configuration
+
+### <a name="output_loggers"></a> [loggers](#output\_loggers)
+
+Description: contains all logger configuration
+
+### <a name="output_products"></a> [products](#output\_products)
+
+Description: contains all product configuration
+
+### <a name="output_redis_caches"></a> [redis\_caches](#output\_redis\_caches)
+
 Description: contains all redis cache configuration
+
+### <a name="output_role_assignments"></a> [role\_assignments](#output\_role\_assignments)
+
+Description: contains all role assignment configuration
+
+### <a name="output_users"></a> [users](#output\_users)
+
+Description: contains all user configuration
 <!-- END_TF_DOCS -->
 
 ## Goals
