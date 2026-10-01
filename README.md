@@ -29,33 +29,33 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.9.3)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_api_management.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) (resource)
-- [azurerm_api_management_api.api](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api) (resource)
-- [azurerm_api_management_custom_domain.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_custom_domain) (resource)
-- [azurerm_api_management_identity_provider_aad.provider](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_identity_provider_aad) (resource)
-- [azurerm_api_management_logger.logger](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_logger) (resource)
-- [azurerm_api_management_product.product](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) (resource)
-- [azurerm_api_management_redis_cache.apim](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_redis_cache) (resource)
-- [azurerm_api_management_user.user](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_user) (resource)
-- [azurerm_role_assignment.apimcert](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) (resource)
+- [azurerm_api_management.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management) (resource)
+- [azurerm_api_management_api.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_api) (resource)
+- [azurerm_api_management_custom_domain.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_custom_domain) (resource)
+- [azurerm_api_management_identity_provider_aad.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_identity_provider_aad) (resource)
+- [azurerm_api_management_logger.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_logger) (resource)
+- [azurerm_api_management_product.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_product) (resource)
+- [azurerm_api_management_redis_cache.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_redis_cache) (resource)
+- [azurerm_api_management_user.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/api_management_user) (resource)
+- [azurerm_role_assignment.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) (resource)
 
 ## Required Inputs
 
 The following input variables are required:
 
-### <a name="input_config"></a> [config](#input\_config)
+### <a name="input_service"></a> [service](#input\_service)
 
 Description: describes the apim configuration
 
@@ -76,14 +76,14 @@ object({
     notification_sender_email     = optional(string)
     public_ip_address_id          = optional(string)
     public_network_access_enabled = optional(bool)
-    virtual_network_type          = optional(string, "None")
+    virtual_network_type          = optional(string)
     tags                          = optional(map(string))
     additional_locations = optional(map(object({
       location             = string
       capacity             = optional(number)
       zones                = optional(list(string))
       public_ip_address_id = optional(string)
-      gateway_disabled     = optional(bool, false)
+      gateway_disabled     = optional(bool)
       virtual_network_configuration = optional(object({
         subnet_id = string
       }))
@@ -94,8 +94,8 @@ object({
       certificate_password = optional(string)
     })), {})
     delegation = optional(object({
-      subscriptions_enabled     = optional(bool, false)
-      user_registration_enabled = optional(bool, false)
+      subscriptions_enabled     = optional(bool)
+      user_registration_enabled = optional(bool)
       url                       = optional(string)
       validation_key            = optional(string)
     }))
@@ -105,7 +105,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       portal = optional(map(object({
@@ -113,7 +113,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       developer_portal = optional(map(object({
@@ -121,7 +121,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       proxy = optional(map(object({
@@ -130,7 +130,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       scm = optional(map(object({
@@ -138,7 +138,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
     }))
@@ -149,26 +149,26 @@ object({
       tags         = optional(map(string))
     }))
     protocols = optional(object({
-      http2_enabled = optional(bool, false)
+      http2_enabled = optional(bool)
     }))
     security = optional(object({
-      backend_ssl30_enabled                               = optional(bool, false)
-      backend_tls10_enabled                               = optional(bool, false)
-      backend_tls11_enabled                               = optional(bool, false)
-      frontend_ssl30_enabled                              = optional(bool, false)
-      frontend_tls10_enabled                              = optional(bool, false)
-      frontend_tls11_enabled                              = optional(bool, false)
-      tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool, false)
-      tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool, false)
-      tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool, false)
-      tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool, false)
-      tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool, false)
-      tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_gcm_sha384_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool, false)
-      triple_des_ciphers_enabled                          = optional(bool, false)
+      backend_ssl30_enabled                               = optional(bool)
+      backend_tls10_enabled                               = optional(bool)
+      backend_tls11_enabled                               = optional(bool)
+      frontend_ssl30_enabled                              = optional(bool)
+      frontend_tls10_enabled                              = optional(bool)
+      frontend_tls11_enabled                              = optional(bool)
+      tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool)
+      tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool)
+      tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool)
+      tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool)
+      tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool)
+      tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_gcm_sha384_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool)
+      triple_des_ciphers_enabled                          = optional(bool)
     }))
     sign_in = optional(object({
       enabled = bool
@@ -205,7 +205,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       portal = optional(map(object({
@@ -213,7 +213,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       developer_portal = optional(map(object({
@@ -221,7 +221,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       gateway = optional(map(object({
@@ -229,7 +229,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
         default_ssl_binding             = optional(bool, false)
       })), {})
@@ -238,7 +238,7 @@ object({
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
     }))
@@ -247,11 +247,11 @@ object({
       connection_string = string
       description       = optional(string)
       redis_cache_id    = optional(string)
-      cache_location    = optional(string, "default")
+      cache_location    = optional(string)
     }))
     logger = optional(object({
-      name        = optional(string)
-      buffered    = optional(bool, true)
+      name        = string
+      buffered    = optional(bool)
       description = optional(string)
       resource_id = optional(string)
       application_insights = optional(object({
@@ -268,10 +268,10 @@ object({
     apis = optional(map(object({
       name                  = optional(string)
       revision              = string
-      api_type              = optional(string, "http")
+      api_type              = optional(string)
       display_name          = optional(string)
       path                  = optional(string)
-      protocols             = optional(list(string), [])
+      protocols             = optional(list(string))
       description           = optional(string)
       service_url           = optional(string)
       subscription_required = optional(bool, false)
@@ -304,7 +304,7 @@ object({
       }))
       openid_authentication = optional(object({
         openid_provider_name         = string
-        bearer_token_sending_methods = optional(list(string), [])
+        bearer_token_sending_methods = optional(list(string))
       }))
       subscription_key_parameter_names = optional(object({
         header = string
@@ -323,7 +323,7 @@ object({
       product_id            = string
       approval_required     = optional(bool)
       published             = optional(bool)
-      subscription_required = optional(bool, true)
+      subscription_required = optional(bool)
       description           = optional(string)
       subscriptions_limit   = optional(number)
       terms                 = optional(string)
@@ -353,14 +353,6 @@ Type: `string`
 
 Default: `null`
 
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type: `map(string)`
-
-Default: `{}`
-
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 
 Description: default resource group to be used.
@@ -385,10 +377,6 @@ The following outputs are exported:
 
 Description: contains all api configuration
 
-### <a name="output_config"></a> [config](#output\_config)
-
-Description: contains all api management configuration
-
 ### <a name="output_custom_domains"></a> [custom\_domains](#output\_custom\_domains)
 
 Description: contains all custom domain configuration
@@ -412,6 +400,10 @@ Description: contains all redis cache configuration
 ### <a name="output_role_assignments"></a> [role\_assignments](#output\_role\_assignments)
 
 Description: contains all role assignment configuration
+
+### <a name="output_service"></a> [service](#output\_service)
+
+Description: contains all api management configuration
 
 ### <a name="output_users"></a> [users](#output\_users)
 

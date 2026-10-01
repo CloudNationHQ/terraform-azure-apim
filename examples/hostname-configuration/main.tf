@@ -41,10 +41,17 @@ module "uai" {
   }
 }
 
+resource "azurerm_role_assignment" "kv" {
+  scope                = module.kv.vault.id
+  role_definition_name = "Key Vault Secrets User"
+  principal_id         = module.uai.identity.principal_id
+}
+
 module "apim" {
   source  = "cloudnationhq/apim/azure"
   version = "~> 4.0"
 
   service = local.apim
-}
 
+  depends_on = [azurerm_role_assignment.kv]
+}

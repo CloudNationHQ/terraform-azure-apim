@@ -17,6 +17,27 @@ module "rg" {
   }
 }
 
+module "eventhub" {
+  source  = "cloudnationhq/evh/azure"
+  version = "~> 4.0"
+
+  namespace = {
+    name                = module.naming.eventhub_namespace.name_unique
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
+
+    eventhubs = {
+      apim = {
+        authorization_rules = {
+          send = {
+            send = true
+          }
+        }
+      }
+    }
+  }
+}
+
 module "apim" {
   source  = "cloudnationhq/apim/azure"
   version = "~> 4.0"
@@ -29,22 +50,14 @@ module "apim" {
     publisher_name      = "CloudNation"
     publisher_email     = "testuser@cloudnation.nl"
 
-    products = {
-      starter = {
-        display_name          = "Starter"
-        product_id            = "starter"
-        published             = true
-        subscription_required = true
-      }
-    }
+    logger = {
+      name        = "evh-logger"
+      description = "event hub logger"
+      buffered    = false
 
-    users = {
-      demo = {
-        email      = "demouser@cloudnation.nl"
-        first_name = "Demo"
-        last_name  = "User"
-        user_id    = "demo-user-1"
-        state      = "active"
+      eventhub = {
+        name              = module.eventhub.eventhubs.apim.name
+        connection_string = module.eventhub.authorization_rules["apim-send"].primary_connection_string
       }
     }
   }
