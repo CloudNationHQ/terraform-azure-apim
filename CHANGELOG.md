@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.2.0...v4.0.0) (2026-10-06)
+
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade to azurerm v5 and new module standards ([#45](https://github.com/CloudNationHQ/terraform-azure-apim/issues/45))
+
+### Features
+
+* Upgrade to azurerm v5 and new module standards ([#45](https://github.com/CloudNationHQ/terraform-azure-apim/issues/45)) ([cdcb47b](https://github.com/CloudNationHQ/terraform-azure-apim/commit/cdcb47b3b3da86047d5b3843c6d7188b919bdd55))
+
 ## [3.2.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.1.0...v3.2.0) (2026-04-03)
 
 
