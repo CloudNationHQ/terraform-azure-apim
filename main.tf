@@ -1,31 +1,27 @@
-resource "azurerm_api_management" "apim" {
+resource "azurerm_api_management" "this" {
   resource_group_name = coalesce(
-    lookup(
-      var.config, "resource_group_name", null
-    ), var.resource_group_name
+    var.service.resource_group_name, var.resource_group_name
   )
 
   location = coalesce(
-    lookup(
-      var.config, "location", null
-    ), var.location
+    var.service.location, var.location
   )
 
-  name                          = var.config.name
-  publisher_name                = var.config.publisher_name
-  publisher_email               = var.config.publisher_email
-  sku_name                      = var.config.sku_name
-  client_certificate_enabled    = var.config.client_certificate_enabled
-  gateway_disabled              = var.config.gateway_disabled
-  min_api_version               = var.config.min_api_version
-  zones                         = var.config.zones
-  notification_sender_email     = var.config.notification_sender_email
-  public_ip_address_id          = var.config.public_ip_address_id
-  public_network_access_enabled = var.config.public_network_access_enabled
-  virtual_network_type          = var.config.virtual_network_type
+  name                          = var.service.name
+  publisher_name                = var.service.publisher_name
+  publisher_email               = var.service.publisher_email
+  sku_name                      = var.service.sku_name
+  client_certificate_enabled    = var.service.client_certificate_enabled
+  gateway_disabled              = var.service.gateway_disabled
+  min_api_version               = var.service.min_api_version
+  zones                         = var.service.zones
+  notification_sender_email     = var.service.notification_sender_email
+  public_ip_address_id          = var.service.public_ip_address_id
+  public_network_access_enabled = var.service.public_network_access_enabled
+  virtual_network_type          = var.service.virtual_network_type
 
   dynamic "additional_location" {
-    for_each = var.config.additional_locations
+    for_each = var.service.additional_locations
 
     content {
       location             = additional_location.value.location
@@ -35,7 +31,7 @@ resource "azurerm_api_management" "apim" {
       gateway_disabled     = additional_location.value.gateway_disabled
 
       dynamic "virtual_network_configuration" {
-        for_each = additional_location.value.virtual_network_configuration != null ? [additional_location.value.virtual_network_configuration] : []
+        for_each = additional_location.value.virtual_network_configuration != null ? { "this" = additional_location.value.virtual_network_configuration } : {}
 
         content {
           subnet_id = virtual_network_configuration.value.subnet_id
@@ -45,7 +41,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "certificate" {
-    for_each = var.config.certificates
+    for_each = var.service.certificates
 
     content {
       encoded_certificate  = certificate.value.encoded_certificate
@@ -55,7 +51,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "delegation" {
-    for_each = var.config.delegation != null ? [var.config.delegation] : []
+    for_each = var.service.delegation != null ? { "this" = var.service.delegation } : {}
 
     content {
       subscriptions_enabled     = delegation.value.subscriptions_enabled
@@ -66,7 +62,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "hostname_configuration" {
-    for_each = var.config.hostname_configuration != null ? [var.config.hostname_configuration] : []
+    for_each = var.service.hostname_configuration != null ? { "this" = var.service.hostname_configuration } : {}
 
     content {
       dynamic "management" {
@@ -138,7 +134,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "identity" {
-    for_each = var.config.identity != null ? [var.config.identity] : []
+    for_each = var.service.identity != null ? { "this" = var.service.identity } : {}
 
     content {
       type         = identity.value.type
@@ -147,7 +143,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "protocols" {
-    for_each = var.config.protocols != null ? [var.config.protocols] : []
+    for_each = var.service.protocols != null ? { "this" = var.service.protocols } : {}
 
     content {
       http2_enabled = protocols.value.http2_enabled
@@ -155,7 +151,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "security" {
-    for_each = var.config.security != null ? [var.config.security] : []
+    for_each = var.service.security != null ? { "this" = var.service.security } : {}
 
     content {
       backend_ssl30_enabled                               = security.value.backend_ssl30_enabled
@@ -179,7 +175,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "sign_in" {
-    for_each = var.config.sign_in != null ? [var.config.sign_in] : []
+    for_each = var.service.sign_in != null ? { "this" = var.service.sign_in } : {}
 
     content {
       enabled = sign_in.value.enabled
@@ -187,13 +183,13 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "sign_up" {
-    for_each = var.config.sign_up != null ? [var.config.sign_up] : []
+    for_each = var.service.sign_up != null ? { "this" = var.service.sign_up } : {}
 
     content {
       enabled = sign_up.value.enabled
 
       dynamic "terms_of_service" {
-        for_each = sign_up.value.terms_of_service != null ? [sign_up.value.terms_of_service] : []
+        for_each = sign_up.value.terms_of_service != null ? { "this" = sign_up.value.terms_of_service } : {}
 
         content {
           consent_required = terms_of_service.value.consent_required
@@ -205,7 +201,7 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "tenant_access" {
-    for_each = var.config.tenant_access != null ? [var.config.tenant_access] : []
+    for_each = var.service.tenant_access != null ? { "this" = var.service.tenant_access } : {}
 
     content {
       enabled = tenant_access.value.enabled
@@ -213,20 +209,18 @@ resource "azurerm_api_management" "apim" {
   }
 
   dynamic "virtual_network_configuration" {
-    for_each = var.config.virtual_network_configuration != null ? [var.config.virtual_network_configuration] : []
+    for_each = var.service.virtual_network_configuration != null ? { "this" = var.service.virtual_network_configuration } : {}
 
     content {
       subnet_id = virtual_network_configuration.value.subnet_id
     }
   }
 
-  tags = coalesce(
-    var.config.tags, var.tags
-  )
+  tags = coalesce(var.service.tags, var.tags)
 }
 
-resource "azurerm_role_assignment" "apimcert" {
-  for_each = var.config.custom_domain != null && lookup(var.config.custom_domain, "role_assignment", null) != null ? { default = var.config.custom_domain.role_assignment } : {}
+resource "azurerm_role_assignment" "this" {
+  for_each = var.service.custom_domain != null ? (var.service.custom_domain.role_assignment != null ? { "this" = var.service.custom_domain.role_assignment } : {}) : {}
 
   scope                                  = each.value.scope
   role_definition_id                     = each.value.role_definition_id
@@ -238,13 +232,13 @@ resource "azurerm_role_assignment" "apimcert" {
   skip_service_principal_aad_check       = each.value.skip_service_principal_aad_check
   principal_type                         = each.value.principal_type
   delegated_managed_identity_resource_id = each.value.delegated_managed_identity_resource_id
-  principal_id                           = azurerm_api_management.apim.identity[0].principal_id
+  principal_id                           = azurerm_api_management.this.identity[0].principal_id
 }
 
-resource "azurerm_api_management_custom_domain" "apim" {
-  for_each = var.config.custom_domain != null ? { default = var.config.custom_domain } : {}
+resource "azurerm_api_management_custom_domain" "this" {
+  for_each = var.service.custom_domain != null ? { "this" = var.service.custom_domain } : {}
 
-  api_management_id = azurerm_api_management.apim.id
+  api_management_id = azurerm_api_management.this.id
 
   dynamic "management" {
     for_each = each.value.management
@@ -313,36 +307,32 @@ resource "azurerm_api_management_custom_domain" "apim" {
   }
 }
 
-resource "azurerm_api_management_redis_cache" "apim" {
-  for_each = nonsensitive(var.config.redis_cache != null ? { default = var.config.redis_cache } : {})
+resource "azurerm_api_management_redis_cache" "this" {
+  for_each = nonsensitive(var.service.redis_cache != null ? { "this" = var.service.redis_cache } : {})
 
   name              = each.value.name
-  api_management_id = azurerm_api_management.apim.id
+  api_management_id = azurerm_api_management.this.id
   connection_string = each.value.connection_string
   description       = each.value.description
   redis_cache_id    = each.value.redis_cache_id
   cache_location    = each.value.cache_location
 }
 
-resource "azurerm_api_management_logger" "logger" {
-  for_each = nonsensitive(var.config.logger != null ? { default = var.config.logger } : {})
+resource "azurerm_api_management_logger" "this" {
+  for_each = nonsensitive(var.service.logger != null ? { "this" = var.service.logger } : {})
 
   resource_group_name = coalesce(
-    var.config.resource_group_name, var.resource_group_name
+    var.service.resource_group_name, var.resource_group_name
   )
 
-  name = coalesce(
-    each.value.name,
-    var.naming.api_management_logger
-  )
-
-  api_management_name = azurerm_api_management.apim.name
+  name                = each.value.name
+  api_management_name = azurerm_api_management.this.name
   buffered            = each.value.buffered
   description         = each.value.description
   resource_id         = each.value.resource_id
 
   dynamic "application_insights" {
-    for_each = each.value.application_insights != null ? [each.value.application_insights] : []
+    for_each = each.value.application_insights != null ? { "this" = each.value.application_insights } : {}
 
     content {
       instrumentation_key = application_insights.value.instrumentation_key
@@ -351,7 +341,7 @@ resource "azurerm_api_management_logger" "logger" {
   }
 
   dynamic "eventhub" {
-    for_each = each.value.eventhub != null ? [each.value.eventhub] : []
+    for_each = each.value.eventhub != null ? { "this" = each.value.eventhub } : {}
 
     content {
       name                             = eventhub.value.name
@@ -362,17 +352,18 @@ resource "azurerm_api_management_logger" "logger" {
   }
 }
 
-resource "azurerm_api_management_api" "api" {
-  for_each = var.config.apis
+resource "azurerm_api_management_api" "this" {
+  for_each = var.service.apis
 
   name = coalesce(
-    each.value.name, try(
-      join("-", [var.naming.api_management_api, each.key]), null
-    ), each.key
+    each.value.name, each.key
   )
 
-  api_management_name   = azurerm_api_management.apim.name
-  resource_group_name   = coalesce(var.config.resource_group_name, var.resource_group_name)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
+
+  api_management_name   = azurerm_api_management.this.name
   revision              = each.value.revision
   api_type              = each.value.api_type
   display_name          = each.value.display_name
@@ -389,7 +380,7 @@ resource "azurerm_api_management_api" "api" {
   source_api_id         = each.value.source_api_id
 
   dynamic "contact" {
-    for_each = each.value.contact != null ? [each.value.contact] : []
+    for_each = each.value.contact != null ? { "this" = each.value.contact } : {}
 
     content {
       email = contact.value.email
@@ -399,7 +390,7 @@ resource "azurerm_api_management_api" "api" {
   }
 
   dynamic "license" {
-    for_each = each.value.license != null ? [each.value.license] : []
+    for_each = each.value.license != null ? { "this" = each.value.license } : {}
 
     content {
       name = license.value.name
@@ -408,14 +399,14 @@ resource "azurerm_api_management_api" "api" {
   }
 
   dynamic "import" {
-    for_each = each.value.import != null ? [each.value.import] : []
+    for_each = each.value.import != null ? { "this" = each.value.import } : {}
 
     content {
       content_format = import.value.content_format
       content_value  = import.value.content_value
 
       dynamic "wsdl_selector" {
-        for_each = import.value.wsdl_selector != null ? [import.value.wsdl_selector] : []
+        for_each = import.value.wsdl_selector != null ? { "this" = import.value.wsdl_selector } : {}
 
         content {
           service_name  = wsdl_selector.value.wsdl_service_name
@@ -426,7 +417,7 @@ resource "azurerm_api_management_api" "api" {
   }
 
   dynamic "oauth2_authorization" {
-    for_each = each.value.oauth2_authorization != null ? [each.value.oauth2_authorization] : []
+    for_each = each.value.oauth2_authorization != null ? { "this" = each.value.oauth2_authorization } : {}
 
     content {
       authorization_server_name = oauth2_authorization.value.authorization_server_name
@@ -435,7 +426,7 @@ resource "azurerm_api_management_api" "api" {
   }
 
   dynamic "openid_authentication" {
-    for_each = each.value.openid_authentication != null ? [each.value.openid_authentication] : []
+    for_each = each.value.openid_authentication != null ? { "this" = each.value.openid_authentication } : {}
 
     content {
       openid_provider_name         = openid_authentication.value.openid_provider_name
@@ -444,7 +435,7 @@ resource "azurerm_api_management_api" "api" {
   }
 
   dynamic "subscription_key_parameter_names" {
-    for_each = each.value.subscription_key_parameter_names != null ? [each.value.subscription_key_parameter_names] : []
+    for_each = each.value.subscription_key_parameter_names != null ? { "this" = each.value.subscription_key_parameter_names } : {}
 
     content {
       header = subscription_key_parameter_names.value.header
@@ -453,16 +444,14 @@ resource "azurerm_api_management_api" "api" {
   }
 }
 
-resource "azurerm_api_management_identity_provider_aad" "provider" {
-  for_each = var.config.identity_provider_aad != null ? { default = var.config.identity_provider_aad } : {}
+resource "azurerm_api_management_identity_provider_aad" "this" {
+  for_each = nonsensitive(var.service.identity_provider_aad != null ? { "this" = var.service.identity_provider_aad } : {})
 
   resource_group_name = coalesce(
-    lookup(
-      var.config, "resource_group_name", null
-    ), var.resource_group_name
+    var.service.resource_group_name, var.resource_group_name
   )
 
-  api_management_name = azurerm_api_management.apim.name
+  api_management_name = azurerm_api_management.this.name
   client_id           = each.value.client_id
   client_secret       = each.value.client_secret
   allowed_tenants     = each.value.allowed_tenants
@@ -470,16 +459,14 @@ resource "azurerm_api_management_identity_provider_aad" "provider" {
   signin_tenant       = each.value.signin_tenant
 }
 
-resource "azurerm_api_management_product" "product" {
-  for_each = var.config.products
+resource "azurerm_api_management_product" "this" {
+  for_each = var.service.products
 
   resource_group_name = coalesce(
-    lookup(
-      var.config, "resource_group_name", null
-    ), var.resource_group_name
+    var.service.resource_group_name, var.resource_group_name
   )
 
-  api_management_name   = azurerm_api_management.apim.name
+  api_management_name   = azurerm_api_management.this.name
   approval_required     = each.value.approval_required
   display_name          = each.value.display_name
   product_id            = each.value.product_id
@@ -490,16 +477,14 @@ resource "azurerm_api_management_product" "product" {
   terms                 = each.value.terms
 }
 
-resource "azurerm_api_management_user" "user" {
-  for_each = var.config.users
+resource "azurerm_api_management_user" "this" {
+  for_each = var.service.users
 
   resource_group_name = coalesce(
-    lookup(
-      var.config, "resource_group_name", null
-    ), var.resource_group_name
+    var.service.resource_group_name, var.resource_group_name
   )
 
-  api_management_name = azurerm_api_management.apim.name
+  api_management_name = azurerm_api_management.this.name
   email               = each.value.email
   first_name          = each.value.first_name
   last_name           = each.value.last_name

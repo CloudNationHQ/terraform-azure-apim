@@ -1,4 +1,4 @@
-variable "config" {
+variable "service" {
   description = "describes the apim configuration"
   type = object({
     name                          = string
@@ -14,14 +14,14 @@ variable "config" {
     notification_sender_email     = optional(string)
     public_ip_address_id          = optional(string)
     public_network_access_enabled = optional(bool)
-    virtual_network_type          = optional(string, "None")
+    virtual_network_type          = optional(string)
     tags                          = optional(map(string))
     additional_locations = optional(map(object({
       location             = string
       capacity             = optional(number)
       zones                = optional(list(string))
       public_ip_address_id = optional(string)
-      gateway_disabled     = optional(bool, false)
+      gateway_disabled     = optional(bool)
       virtual_network_configuration = optional(object({
         subnet_id = string
       }))
@@ -32,8 +32,8 @@ variable "config" {
       certificate_password = optional(string)
     })), {})
     delegation = optional(object({
-      subscriptions_enabled     = optional(bool, false)
-      user_registration_enabled = optional(bool, false)
+      subscriptions_enabled     = optional(bool)
+      user_registration_enabled = optional(bool)
       url                       = optional(string)
       validation_key            = optional(string)
     }))
@@ -43,7 +43,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       portal = optional(map(object({
@@ -51,7 +51,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       developer_portal = optional(map(object({
@@ -59,7 +59,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       proxy = optional(map(object({
@@ -68,7 +68,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       scm = optional(map(object({
@@ -76,7 +76,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
     }))
@@ -87,26 +87,26 @@ variable "config" {
       tags         = optional(map(string))
     }))
     protocols = optional(object({
-      http2_enabled = optional(bool, false)
+      http2_enabled = optional(bool)
     }))
     security = optional(object({
-      backend_ssl30_enabled                               = optional(bool, false)
-      backend_tls10_enabled                               = optional(bool, false)
-      backend_tls11_enabled                               = optional(bool, false)
-      frontend_ssl30_enabled                              = optional(bool, false)
-      frontend_tls10_enabled                              = optional(bool, false)
-      frontend_tls11_enabled                              = optional(bool, false)
-      tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool, false)
-      tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool, false)
-      tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool, false)
-      tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool, false)
-      tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool, false)
-      tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_gcm_sha384_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool, false)
-      tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool, false)
-      triple_des_ciphers_enabled                          = optional(bool, false)
+      backend_ssl30_enabled                               = optional(bool)
+      backend_tls10_enabled                               = optional(bool)
+      backend_tls11_enabled                               = optional(bool)
+      frontend_ssl30_enabled                              = optional(bool)
+      frontend_tls10_enabled                              = optional(bool)
+      frontend_tls11_enabled                              = optional(bool)
+      tls_ecdhe_ecdsa_with_aes128_cbc_sha_ciphers_enabled = optional(bool)
+      tls_ecdhe_ecdsa_with_aes256_cbc_sha_ciphers_enabled = optional(bool)
+      tls_ecdhe_rsa_with_aes128_cbc_sha_ciphers_enabled   = optional(bool)
+      tls_ecdhe_rsa_with_aes256_cbc_sha_ciphers_enabled   = optional(bool)
+      tls_rsa_with_aes128_cbc_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes128_cbc_sha_ciphers_enabled         = optional(bool)
+      tls_rsa_with_aes128_gcm_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_gcm_sha384_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_cbc_sha256_ciphers_enabled      = optional(bool)
+      tls_rsa_with_aes256_cbc_sha_ciphers_enabled         = optional(bool)
+      triple_des_ciphers_enabled                          = optional(bool)
     }))
     sign_in = optional(object({
       enabled = bool
@@ -143,7 +143,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       portal = optional(map(object({
@@ -151,7 +151,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       developer_portal = optional(map(object({
@@ -159,7 +159,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
       gateway = optional(map(object({
@@ -167,7 +167,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
         default_ssl_binding             = optional(bool, false)
       })), {})
@@ -176,7 +176,7 @@ variable "config" {
         key_vault_certificate_id        = optional(string)
         certificate                     = optional(string)
         certificate_password            = optional(string)
-        negotiate_client_certificate    = optional(bool, false)
+        negotiate_client_certificate    = optional(bool)
         ssl_keyvault_identity_client_id = optional(string)
       })), {})
     }))
@@ -185,11 +185,11 @@ variable "config" {
       connection_string = string
       description       = optional(string)
       redis_cache_id    = optional(string)
-      cache_location    = optional(string, "default")
+      cache_location    = optional(string)
     }))
     logger = optional(object({
-      name        = optional(string)
-      buffered    = optional(bool, true)
+      name        = string
+      buffered    = optional(bool)
       description = optional(string)
       resource_id = optional(string)
       application_insights = optional(object({
@@ -206,10 +206,10 @@ variable "config" {
     apis = optional(map(object({
       name                  = optional(string)
       revision              = string
-      api_type              = optional(string, "http")
+      api_type              = optional(string)
       display_name          = optional(string)
       path                  = optional(string)
-      protocols             = optional(list(string), [])
+      protocols             = optional(list(string))
       description           = optional(string)
       service_url           = optional(string)
       subscription_required = optional(bool, false)
@@ -242,7 +242,7 @@ variable "config" {
       }))
       openid_authentication = optional(object({
         openid_provider_name         = string
-        bearer_token_sending_methods = optional(list(string), [])
+        bearer_token_sending_methods = optional(list(string))
       }))
       subscription_key_parameter_names = optional(object({
         header = string
@@ -261,7 +261,7 @@ variable "config" {
       product_id            = string
       approval_required     = optional(bool)
       published             = optional(bool)
-      subscription_required = optional(bool, true)
+      subscription_required = optional(bool)
       description           = optional(string)
       subscriptions_limit   = optional(number)
       terms                 = optional(string)
@@ -279,31 +279,14 @@ variable "config" {
   })
 
   validation {
-    condition     = var.config.location != null || var.location != null
-    error_message = "location must be provided either in the config object or as a separate variable."
+    condition     = lookup(var.service, "location", null) != null || var.location != null
+    error_message = "location must be set on var.service.location or on the module-level var.location."
   }
 
   validation {
-    condition     = var.config.resource_group_name != null || var.resource_group_name != null
-    error_message = "resource group name must be provided either in the config object or as a separate variable."
+    condition     = lookup(var.service, "resource_group_name", null) != null || var.resource_group_name != null
+    error_message = "resource_group_name must be set on var.service.resource_group_name or on the module-level var.resource_group_name."
   }
-
-  validation {
-    condition = (
-      var.config.logger == null || var.config.logger.application_insights == null ||
-      (
-        (try(var.config.logger.application_insights.instrumentation_key, null) != null) !=
-        (try(var.config.logger.application_insights.connection_string, null) != null)
-      )
-    )
-    error_message = "logger.application_insights must set exactly one of instrumentation_key or connection_string."
-  }
-}
-
-variable "naming" {
-  description = "contains naming convention"
-  type        = map(string)
-  default     = {}
 }
 
 variable "location" {

@@ -17,6 +17,18 @@ module "rg" {
   }
 }
 
+module "appi" {
+  source  = "cloudnationhq/appi/azure"
+  version = "~> 4.0"
+
+  insights = {
+    name                = module.naming.application_insights.name
+    resource_group_name = module.rg.groups.demo.name
+    location            = module.rg.groups.demo.location
+    application_type    = "web"
+  }
+}
+
 module "apim" {
   source  = "cloudnationhq/apim/azure"
   version = "~> 4.0"
@@ -28,5 +40,15 @@ module "apim" {
     sku_name            = "Developer_1"
     publisher_name      = "CloudNation"
     publisher_email     = "testuser@cloudnation.nl"
+
+    logger = {
+      name        = "appi-logger"
+      description = "application insights logger"
+      resource_id = module.appi.insights.id
+
+      application_insights = {
+        connection_string = module.appi.insights.connection_string
+      }
+    }
   }
 }

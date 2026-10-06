@@ -9,7 +9,7 @@ locals {
 
     identity = {
       type         = "SystemAssigned, UserAssigned"
-      identity_ids = [module.uai.config.id]
+      identity_ids = [module.uai.identity.id]
     }
 
     custom_domain = {
@@ -28,6 +28,28 @@ locals {
         mgmt1 = {
           host_name                = "apim.management.example.com"
           key_vault_certificate_id = module.kv.certs.management.versionless_secret_id
+        }
+      }
+
+      developer_portal = {
+        dev1 = {
+          host_name                = "apim.developer.example.com"
+          key_vault_certificate_id = module.kv.certs.developer.versionless_secret_id
+        }
+      }
+
+      gateway = {
+        gw1 = {
+          host_name                = "apim.gateway.example.com"
+          key_vault_certificate_id = module.kv.certs.gateway.versionless_secret_id
+          default_ssl_binding      = true
+        }
+      }
+
+      scm = {
+        scm1 = {
+          host_name                = "apim.scm.example.com"
+          key_vault_certificate_id = module.kv.certs.scm.versionless_secret_id
         }
       }
     }
