@@ -1,6 +1,11 @@
 resource "azurerm_api_management" "this" {
-  resource_group_name = coalesce(var.service.resource_group_name, var.resource_group_name)
-  location            = coalesce(var.service.location, var.location)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
+
+  location = coalesce(
+    var.service.location, var.location
+  )
 
   name                          = var.service.name
   publisher_name                = var.service.publisher_name
@@ -316,10 +321,11 @@ resource "azurerm_api_management_redis_cache" "this" {
 resource "azurerm_api_management_logger" "this" {
   for_each = nonsensitive(var.service.logger != null ? { "this" = var.service.logger } : {})
 
-  resource_group_name = coalesce(var.service.resource_group_name, var.resource_group_name)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
 
-  name = each.value.name
-
+  name                = each.value.name
   api_management_name = azurerm_api_management.this.name
   buffered            = each.value.buffered
   description         = each.value.description
@@ -349,10 +355,15 @@ resource "azurerm_api_management_logger" "this" {
 resource "azurerm_api_management_api" "this" {
   for_each = var.service.apis
 
-  name = coalesce(each.value.name, each.key)
+  name = coalesce(
+    each.value.name, each.key
+  )
+
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
 
   api_management_name   = azurerm_api_management.this.name
-  resource_group_name   = coalesce(var.service.resource_group_name, var.resource_group_name)
   revision              = each.value.revision
   api_type              = each.value.api_type
   display_name          = each.value.display_name
@@ -436,7 +447,9 @@ resource "azurerm_api_management_api" "this" {
 resource "azurerm_api_management_identity_provider_aad" "this" {
   for_each = nonsensitive(var.service.identity_provider_aad != null ? { "this" = var.service.identity_provider_aad } : {})
 
-  resource_group_name = coalesce(var.service.resource_group_name, var.resource_group_name)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
 
   api_management_name = azurerm_api_management.this.name
   client_id           = each.value.client_id
@@ -449,7 +462,9 @@ resource "azurerm_api_management_identity_provider_aad" "this" {
 resource "azurerm_api_management_product" "this" {
   for_each = var.service.products
 
-  resource_group_name = coalesce(var.service.resource_group_name, var.resource_group_name)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
 
   api_management_name   = azurerm_api_management.this.name
   approval_required     = each.value.approval_required
@@ -465,7 +480,9 @@ resource "azurerm_api_management_product" "this" {
 resource "azurerm_api_management_user" "this" {
   for_each = var.service.users
 
-  resource_group_name = coalesce(var.service.resource_group_name, var.resource_group_name)
+  resource_group_name = coalesce(
+    var.service.resource_group_name, var.resource_group_name
+  )
 
   api_management_name = azurerm_api_management.this.name
   email               = each.value.email
