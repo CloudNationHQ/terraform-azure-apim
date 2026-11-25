@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v4.0.0...v4.1.0) (2026-11-25)
+
+
+### Features
+
+* add identity_client_id to api management logger application_insights block ([#51](https://github.com/CloudNationHQ/terraform-azure-apim/issues/51)) ([faae311](https://github.com/CloudNationHQ/terraform-azure-apim/commit/faae3111a06469ebcdad7c561f1396df81729486))
+
 ## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-apim/compare/v3.2.0...v4.0.0) (2026-10-06)
 
 
