@@ -195,6 +195,7 @@ variable "service" {
       application_insights = optional(object({
         instrumentation_key = optional(string)
         connection_string   = optional(string)
+        identity_client_id  = optional(string)
       }))
       eventhub = optional(object({
         name                             = string
